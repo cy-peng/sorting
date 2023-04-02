@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 80px;
+}
+
+h1 {
+    color: #333;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.card {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #333;
+    font-size: 40px;
+    line-height: 80px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: lightgray;
+}
+
+
+#timer {
+    font-size: 24px;
+    color: #333;
+}
+
+#restart {
+    width: 200px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/*設定生命值的樣式*/
+#HP {
+    border: 1px solid black;
+    width: 500px;
+    height: 30px;
+}
+
+#HPText {
+    font-size: 24px;
+    color: #333;
+}
+
+
+/*設定標題的樣式*/
+#level {
+    font-family: Arial;
+    font-size: 24px;
+    text-align: center;
+}
+
+/*設定開關的樣式*/
+#switches {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/*設定開關的共同樣式*/
+.switch {
+    margin: 0 10px;
+    cursor: pointer;
+    padding:10px;
+}
+
+/*設定開關的選中樣式*/
+.switch.checked {
+    color: white;
+    background-color: green;
+    border-radius: 10px;
+}
+

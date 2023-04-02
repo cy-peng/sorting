@@ -1,0 +1,34 @@
+<html lang="zh">       
+    <head>       
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="src/style.css">
+        <link rel="icon" href="img/1.png" type="image/x-icon"/>
+        <title>Sorting</title>
+    </head>
+
+    <body>
+        <h1>請將下列數值由小至大排序</h1>
+
+        <canvas id="HP"></canvas>
+
+        <p id="HPText">生命值：10</p>
+
+        <!--建立一個標題元素-->
+        <h1 id="level">難度</h1>
+
+        <!--建立一個開關元素-->
+        <div id="switches">
+            <span id="switchLow" class="switch" data-value="1">簡單</span>
+            <span id="switchMedium" class="switch" data-value="2">中等</span>
+            <span id="switchHigh" class="switch" data-value="3">困難</span>
+        </div>
+
+        <div id="container"></div>
+        <p id="timer">時間：00:00</p>
+        <button id="restart">重新開始</button>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="src/script.js"></script>
+    </body>
+
+</html>
