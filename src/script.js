@@ -1,3 +1,18 @@
+/**
+ * 《選擇排序小遊戲》
+ * 計分方式：遊戲結束時結算總分，生命值愈高、花費時間越短總分會愈高
+ * 遊戲規則：選擇難度後點選任一張卡片即開始遊戲，每點選兩張卡片會自動交換數字，每次交換會扣除生命值，若生命值歸零時未將各卡片從左側開始由小至大排序則遊戲失敗，反之成功通關
+ * 更新日期：2023-03-30
+ * 
+ * 修改紀錄：
+ * V0 2023-03-30   Willie   1.註解numbers陣列，目前為隨機產生數字
+ *                          2.增加多難度功能，可在setLevel()自行設定各難度的cardQty、maxHPValue
+ *                          3.除錯、重構 
+ * V1 2023-03-30   Willie   1.修正[重新開始]計時器未關閉問題
+ *                          2.簡化swapCards(i,j)邏輯
+ *                          3.增加版本控管
+ */
+
 
 // 定義變數
 var container = document.getElementById("container"); // 容器元素
@@ -5,7 +20,6 @@ var HPText = document.getElementById("HPText"); // 生命值元素
 var timer = document.getElementById("timer"); // 時間元素
 var restart = document.getElementById("restart"); // 重新開始按鈕
 var cards = []; // 卡片元素陣列
-// var numbers = []; // 數字陣列
 var selected = []; // 已選擇的卡片索引陣列
 var timerValue; // 時間（秒）
 var timerId;    // 計時器ID
@@ -19,6 +33,8 @@ const LEVEL = {         // 遊戲難度
     high: 3,
 };
 var currentLevel = LEVEL.low;   // 預設難度：簡單
+var number;
+var Score;    //分數
 
 //取得開關元素
 let levelswitches = document.getElementById("switches");
@@ -31,7 +47,7 @@ let switchHigh = document.getElementById("switchHigh");
 function init() {
     playStatus = 0;
     clearInterval(timerId);
- 
+
     setLevel();
 
     // 初始化生命值值和生命值元素
@@ -48,15 +64,13 @@ function init() {
     container.innerHTML = "";
     // 清空卡片元素陣列
     cards = [];
-    // 清空數字陣列
-    // numbers = [];
-    // 清空已選擇的卡片索引陣列
     selected = [];
+    number = [];
+    Score = 0;
 
     // 依難易度隨機生成n個1到100之間的數字，並存入數字陣列   
     for (var i = 0; i < cardQty; i++) {
         var num = Math.floor(Math.random() * 100) + 1;
-        // numbers.push(num);
         // 建立卡片元素，並設定其內容和事件監聽器
         var card = document.createElement("div");
         card.className = "card";
@@ -67,8 +81,8 @@ function init() {
         // 將卡片元素加入容器元素和卡片元素陣列
         container.appendChild(card);
         cards.push(card);
+        number.push(num);
     }
-
 }
 
 // 切換難度
@@ -234,9 +248,30 @@ function selectCard(card) {
 function swapCards(i, j) {
     // // 交換兩個數字在卡片元素陣列中的位置
     var temp = cards[i].innerHTML;
-    cards[i].innerHTML=cards[j].innerHTML;
+    cards[i].innerHTML = cards[j].innerHTML;
     cards[j].innerHTML = temp;
 }
+
+
+//選擇排序法
+function selectionSort(array) {
+    let swapCount = 0; //定義一個變數來記錄交換次數，初始為0
+    let n = array.length; //取得陣列長度
+    for (let i = 0; i < n - 1; i++) { //外層迴圈，從第一個元素開始，每次遞增1，直到倒數第二個元素
+        let minIndex = i; //假設當前元素是最小的
+        for (let j = i + 1; j < n; j++) { //內層迴圈，從當前元素的下一個開始，每次遞增1，直到最後一個元素
+            if (array[j] < array[minIndex]) { //如果陣列中的元素比當前最小元素還小
+                minIndex = j; //更新最小元素的索引
+            }
+        }
+        if (minIndex !== i) { //如果最小元素不是當前元素
+            [array[i], array[minIndex]] = [array[minIndex], array[i]]; //交換兩個元素的位置，使用解構賦值語法
+            swapCount++; //交換次數加一
+        }
+    }
+    return swapCount; //返回交換次數
+}
+
 
 // 檢查一個陣列是否已經排序的函式
 function isSorted(array) {
@@ -253,11 +288,19 @@ function isSorted(array) {
 function endGame() {
     // 停止計時器
     clearInterval(timerId);
-    // 計算分數，根據交換次數和時間的比例，生命值越高越好
-    //var finalHP = Math.round(HPValue * 1200 / (100 + timerValue));
-    var finalHP = Math.round ((HPValue/maxHPValue)* 120);
+
+    //依照最佳交換次數去計算分數
+    var bestMoveCount = selectionSort(number);
+    var MoveCount = maxHPValue - HPValue;
+    if (MoveCount >= maxHPValue) {
+        Score = 0;
+    }
+    else {
+        Score = Math.floor((1 - (MoveCount - bestMoveCount) / maxHPValue) * 100);
+    }
+
     // 顯示提示訊息，告訴玩家遊戲結束和分數
-    alert("遊戲結束！你的分數是：" + finalHP);
+    alert("遊戲結束！你的分數是：" + Score);
 
     // 開放難度選項
     levelswitches.disabled = false;
