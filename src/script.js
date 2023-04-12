@@ -12,6 +12,8 @@ var playStatus = 0;   // 遊戲狀態：初始0、1開始、2結束
 var HPValue;    // 生命值
 var maxHPValue = 10;    // 最大生命值
 var cardQty = 6;        // 卡片數量
+var timeLimit = 5;     // 時間限制
+
 const LEVEL = {         // 遊戲難度
     low: 1,
     medium: 2,
@@ -83,16 +85,19 @@ function setLevel() {
     if (currentLevel == LEVEL.low) {
         maxHPValue = 10;
         cardQty = 6;
+        timeLimit = 5;
         body.style.backgroundColor = "#f0ebe5";
     }
     else if (currentLevel == LEVEL.medium) {
         maxHPValue = 20;
         cardQty = 12;
+        timeLimit = 20;
         body.style.backgroundColor = "#dadad8";
     }
     else if (currentLevel == LEVEL.high) {
         maxHPValue = 50;
         cardQty = 18;
+        timeLimit = 40;
         body.style.backgroundColor = "#e0cdcf";
     }
 
@@ -282,6 +287,8 @@ function endGame() {
     }
     else {
         Score = Math.floor((1 - (MoveCount - bestMoveCount) / maxHPValue) * 100);
+        if (timerValue > timeLimit)  Score-=(timerValue - timeLimit);
+        if (Score < 0) Score = 0;
     }
 
     // 顯示提示訊息，告訴玩家遊戲結束和分數
