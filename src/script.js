@@ -83,19 +83,19 @@ function setLevel() {
     var body = document.querySelector("body");
 
     if (currentLevel == LEVEL.low) {
-        maxHPValue = 50;
+        maxHPValue = 10;
         cardQty = 6;
         timeLimit = 5;
         body.style.backgroundColor = "#f0ebe5";
     }
     else if (currentLevel == LEVEL.medium) {
-        maxHPValue = 150;
+        maxHPValue = 20;
         cardQty = 12;
         timeLimit = 20;
         body.style.backgroundColor = "#dadad8";
     }
     else if (currentLevel == LEVEL.high) {
-        maxHPValue = 300;
+        maxHPValue = 50;
         cardQty = 18;
         timeLimit = 40;
         body.style.backgroundColor = "#e0cdcf";
