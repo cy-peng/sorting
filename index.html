@@ -7,26 +7,26 @@
     </head>
 
     <body>
-        <h1>將下列數值由小至大排序</h1>
-        <p>1. 點選兩張卡片來做交換 <br><br>2. 卡片點選第二次即取消選取<br></p>
+        <h1 onmousedown="return false" onselectstart="return false">將下列數值由小至大排序</h1>
+        <p onmousedown="return false" onselectstart="return false">1. 點選兩張卡片來做交換 <br><br>2. 卡片點選第二次即取消選取<br></p>
 
         <canvas id="HP"></canvas>
 
-        <p id="HPText">生命值：10</p>
+        <p id="HPText" onmousedown="return false" onselectstart="return false">生命值：10</p>
 
         <!--建立一個標題元素-->
         <h1 id="level">難度</h1>
 
         <!--建立一個開關元素-->
-        <div id="switches">
+        <div id="switches" onmousedown="return false" onselectstart="return false">
             <span id="switchLow" class="switch" data-value="1">簡單</span>
             <span id="switchMedium" class="switch" data-value="2">中等</span>
             <span id="switchHigh" class="switch" data-value="3">困難</span>
         </div>
 
-        <div id="container"></div>
-        <p id="timer">時間：00:00</p>
-        <button id="restart">重新開始</button>
+        <div id="container" onmousedown="return false" onselectstart="return false"></div>
+        <p id="timer" onmousedown="return false" onselectstart="return false">時間：00:00</p>
+        <button id="restart" onmousedown="return false" onselectstart="return false">重新開始</button>
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="src/script.js"></script>
